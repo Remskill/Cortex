@@ -1,0 +1,104 @@
+# Cortex - Complete Documentation for LLMs
+
+## Overview
+
+Cortex is a free, open-source AI memory system that provides semantic search over codebases via Model Context Protocol (MCP). It enables AI coding assistants like Claude Code to find existing implementations before writing new code, preventing duplication and ensuring pattern consistency.
+
+## Problem Solved
+
+When working on large codebases, AI assistants often don't know about existing implementations. This leads to:
+- Duplicate code being written
+- Inconsistent patterns across the project
+- Reinventing solutions that already exist
+
+Cortex solves this by creating a searchable vector database of your codebase that AI assistants can query.
+
+## Architecture
+
+### Components
+1. **PostgreSQL + pgvector**: Stores code chunks as 768-dimensional vectors
+2. **Ollama**: Local embedding model (nomic-embed-text) - no cloud API needed
+3. **MCP Server**: STDIO-based communication with Claude Code
+4. **Git Hook**: Auto-syncs changed files on commit
+
+### Data Flow
+1. Files are chunked (1024 chars with 100 char overlap)
+2. Each chunk is embedded via Ollama
+3. Vectors stored in PostgreSQL with pgvector
+4. Queries return semantically similar code chunks
+
+## Installation
+
+```bash
+# Clone into your project
+git clone https://github.com/Remskill/Cortex.git cortex
+cd cortex
+
+# Start PostgreSQL and Ollama
+npm run docker:up
+
+# Initialize database and sync files
+npm run setup
+
+# Install git hook for auto-sync
+npm run hook:install
+```
+
+## Configuration
+
+### Environment Variables
+- `DATABASE_URL`: PostgreSQL connection string
+- `OLLAMA_URL`: Ollama server URL (default: http://localhost:11434)
+- `EMBEDDINGS_MODEL`: Model name (default: nomic-embed-text)
+- `EMBEDDINGS_DIMENSIONS`: Vector dimensions (default: 768)
+
+### MCP Configuration (.mcp.json in project root)
+```json
+{
+  "mcpServers": {
+    "cortex": {
+      "command": "npx",
+      "args": ["tsx", "cortex/src/server.ts"],
+      "env": {
+        "DATABASE_URL": "postgres://cortex:cortex-dev-pass-123@localhost:5433/cortex"
+      }
+    }
+  }
+}
+```
+
+## MCP Tools Available
+
+1. **cortex_query**: Semantic search - find similar code
+2. **cortex_sync**: Sync files to database
+3. **cortex_stats**: Get database statistics
+4. **cortex_list_files**: List indexed files
+5. **cortex_delete**: Remove files from index
+6. **cortex_init**: Initialize database schema
+
+## Usage Pattern for AI Assistants
+
+Before implementing any feature:
+```
+cortex_query("authentication middleware")
+cortex_query("error handling pattern")
+cortex_query("database connection")
+```
+
+This returns existing implementations that should be followed or reused.
+
+## Requirements
+
+- Docker and Docker Compose
+- Node.js 18+
+- ~500MB disk space (PostgreSQL + Ollama model)
+
+## License
+
+MIT License - free for personal and commercial use.
+
+## Links
+
+- GitHub: https://github.com/Remskill/Cortex
+- Issues: https://github.com/Remskill/Cortex/issues
+- Author: Denys Medvediev (https://buymeacoffee.com/denys_medvediev)

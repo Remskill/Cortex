@@ -1,0 +1,43 @@
+# Cortex - AI Memory System
+
+> Free, open-source AI memory system for Claude Code and other AI assistants. Provides semantic search over codebases using local PostgreSQL + pgvector + Ollama embeddings.
+
+## What is Cortex?
+
+Cortex is a Model Context Protocol (MCP) server that gives AI coding assistants memory. It indexes your codebase into vector embeddings, enabling semantic search to find existing implementations and prevent code duplication.
+
+## Key Features
+
+- Local-first: All data stays on your machine (PostgreSQL + Ollama)
+- Zero cloud dependencies: No API keys or external services required
+- MCP integration: Works natively with Claude Code
+- Semantic search: Find code by meaning, not just keywords
+- Auto-sync: Git pre-commit hook keeps index updated
+
+## Quick Start
+
+1. Clone into your project: `git clone https://github.com/Remskill/Cortex.git cortex`
+2. Start services: `cd cortex && npm run docker:up`
+3. Setup database: `npm run setup`
+4. Add to `.mcp.json` in project root
+
+## Links
+
+- [GitHub Repository](https://github.com/Remskill/Cortex)
+- [README](https://github.com/Remskill/Cortex/blob/main/README.md)
+- [Installation Guide](https://github.com/Remskill/Cortex/blob/main/README.md#-quick-start)
+- [Agent Guide](https://github.com/Remskill/Cortex/blob/main/docs/example-agent.md)
+
+## Technical Stack
+
+- PostgreSQL 16 with pgvector extension
+- Ollama with nomic-embed-text model (768-dim embeddings)
+- TypeScript/Node.js
+- Model Context Protocol (MCP) via STDIO
+
+## Use Cases
+
+- Prevent code duplication in large codebases
+- Find existing implementations before writing new code
+- Maintain consistency across project patterns
+- Semantic code search for AI assistants

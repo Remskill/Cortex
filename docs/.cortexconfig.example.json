@@ -1,0 +1,4 @@
+{
+  "maxFileSize": 52428800,
+  "$comment": "Max file size in bytes. 52428800 = 50MB. Also accepts strings like '50MB'. Default: 50MB"
+}

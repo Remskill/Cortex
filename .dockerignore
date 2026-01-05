@@ -1,0 +1,12 @@
+node_modules
+.git
+.env
+.env.*
+*.log
+dist
+build
+.vscode
+.idea
+*.md
+database/migrations/*.sql
+scripts

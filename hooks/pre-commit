@@ -1,0 +1,11 @@
+#!/bin/sh
+# Cortex Git Pre-Commit Hook
+# Automatically syncs changed files to Cortex vector database
+
+echo "🔄 Running Cortex pre-commit sync..."
+
+# Run the git-sync script from cortex directory
+cd cortex && npx tsx scripts/git-sync.ts
+
+# Exit with the script's exit code
+exit $?

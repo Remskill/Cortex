@@ -1,0 +1,111 @@
+# ============================================
+# CORTEX - AI Memory System
+# ============================================
+# Standalone semantic search and knowledge base for ANY codebase
+# Provides vector embeddings via MCP server integration
+#
+# This is a portable, self-contained system that can be dropped
+# into any project to provide AI memory capabilities via Claude Code.
+#
+# Architecture:
+#   - PostgreSQL with pgvector extension (vector database)
+#   - Ollama (embedding service using nomic-embed-text model)
+#   - MCP Server runs locally via .mcp.json (STDIO transport)
+#
+# Quick Start:
+#   1. Copy this entire cortex/ folder to your project
+#   2. Create .env file (copy from .env.example)
+#   3. Set WORKSPACE_ROOT to your project path in .env
+#   4. docker-compose up -d
+#   5. npm install && npm run setup
+#
+# MCP Integration (.mcp.json in your project root):
+#   {
+#     "mcpServers": {
+#       "cortex": {
+#         "command": "npx",
+#         "args": ["tsx", "cortex/src/server.ts"],
+#         "env": {
+#           "DATABASE_URL": "postgres://cortex:cortex-password@localhost:5433/cortex",
+#           "OLLAMA_URL": "http://localhost:11434",
+#           "WORKSPACE_ROOT": "/absolute/path/to/your/project"
+#         }
+#       }
+#     }
+#   }
+#
+# Health Checks:
+#   curl http://localhost:5433          # PostgreSQL
+#   curl http://localhost:11434         # Ollama API
+#
+# Environment Variables (set in .env file):
+#   CORTEX_POSTGRES_PASSWORD - Database password
+#   WORKSPACE_ROOT - Absolute path to your codebase (for .mcp.json)
+#   OLLAMA_URL - Ollama API endpoint
+
+services:
+  # ===========================================
+  # POSTGRESQL - Vector Database with pgvector
+  # ===========================================
+  cortex-postgres:
+    image: pgvector/pgvector:pg16
+    container_name: cortex-postgres
+    ports:
+      - "5433:5432"  # 5433 to avoid conflict with system PostgreSQL
+    environment:
+      - POSTGRES_DB=cortex
+      - POSTGRES_USER=cortex
+      - POSTGRES_PASSWORD=${CORTEX_POSTGRES_PASSWORD:-cortex-dev-pass-123}
+    volumes:
+      - cortex_postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cortex -d cortex"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cortex-network
+
+  # ===========================================
+  # OLLAMA - Embedding Service
+  # ===========================================
+  # Uses nomic-embed-text model (768 dimensions)
+  # Automatically pulls model on first startup
+  cortex-ollama:
+    image: ollama/ollama:latest
+    container_name: cortex-ollama
+    ports:
+      - "11434:11434"  # Ollama API
+    volumes:
+      - cortex_ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - cortex-network
+    # Pull nomic-embed-text model on startup
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        /bin/ollama serve &
+        OLLAMA_PID=$$!
+        sleep 10
+        echo "Pulling nomic-embed-text model..."
+        ollama pull nomic-embed-text
+        echo "Model ready!"
+        wait $$OLLAMA_PID
+
+volumes:
+  cortex_postgres_data:
+    driver: local
+  cortex_ollama_data:
+    driver: local
+
+networks:
+  cortex-network:
+    driver: bridge

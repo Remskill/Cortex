@@ -1,0 +1,67 @@
+{
+  "name": "@remskill/cortex",
+  "version": "1.0.1",
+  "description": "Free and open-source AI memory system for preventing code duplication and ensuring pattern consistency",
+  "keywords": [
+    "ai",
+    "claude-code",
+    "claude",
+    "anthropic",
+    "mcp",
+    "model-context-protocol",
+    "vector-search",
+    "semantic-search",
+    "ai-memory",
+    "code-assistant",
+    "embeddings",
+    "pgvector",
+    "ollama",
+    "rag",
+    "retrieval-augmented-generation",
+    "code-search",
+    "ai-coding",
+    "chatgpt",
+    "llm",
+    "local-ai"
+  ],
+  "homepage": "https://github.com/Remskill/Cortex",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Remskill/Cortex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Remskill/Cortex/issues"
+  },
+  "author": {
+    "name": "Denys Medvediev",
+    "url": "https://buymeacoffee.com/denys_medvediev"
+  },
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "bin": {
+    "cortex-server": "./src/server.ts"
+  },
+  "scripts": {
+    "db:setup": "tsx scripts/init-database-schema.ts",
+    "db:sync": "node --max-old-space-size=4096 --import tsx/esm scripts/sync.ts",
+    "db:wipe": "tsx scripts/delete-all.ts",
+    "setup": "npm run db:setup && echo \"\" && echo \"✅ Database schema created! Now syncing files...\" && echo \"\" && npm run db:sync",
+    "hook:install": "cp hooks/pre-commit ../.git/hooks/pre-commit && chmod +x ../.git/hooks/pre-commit && echo \"✅ Git pre-commit hook installed!\"",
+    "mcp:server": "tsx src/server.ts",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.1",
+    "glob": "^10.3.10",
+    "postgres": "^3.4.3",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
