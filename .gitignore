@@ -58,6 +58,3 @@ Thumbs.db
 # Don't ignore these important files
 !database/schema.sql
 !database/migrations/*.sql
-
-# Project-specific Claude instructions (user customizes locally)
-CLAUDE.md
