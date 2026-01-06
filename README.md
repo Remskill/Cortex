@@ -178,11 +178,36 @@ Run `/exit` and reopen. Verify with `/mcp` → should see `cortex: connected`
 npm run hook:install
 ```
 
-### Step 8 · Add to CLAUDE.md
+### Step 8 · Create Cortex Memory Agent (Recommended)
+
+> 💡 **Why?** Agents ensure Claude Code automatically queries Cortex before implementing features.
+
+**Option A: Using Claude Code CLI** (recommended)
+```bash
+/agents
+# → Select "Create new agent"
+# → Follow prompts to create an agent for searching codebase patterns
+# → Name it something like "cortex-memory-agent"
+```
+
+**Option B: Copy example agent**
+```bash
+# Copy the pre-built agent definition
+cp cortex/docs/cortex-memory-agent.md .claude/agents/cortex-memory-agent.md
+```
+
+See [`docs/cortex-memory-agent.md`](docs/cortex-memory-agent.md) for a complete agent example.
+
+### Step 9 · Add to CLAUDE.md
+
+Tell Claude cli to always use your Cortex agent:
 
 ```markdown
 ## Cortex Memory
-**ALWAYS query Cortex before implementing features:**
+**ALWAYS use the cortex-memory-agent before implementing ANY feature.**
+This agent will query Cortex to find existing patterns and prevent code duplication.
+
+Manual query example:
 cortex_query("what you're building")
 ```
 
