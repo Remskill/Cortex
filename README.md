@@ -1,4 +1,4 @@
-# 🧠 Cortex
+# 🧠 Cortex: Open-Source AI Memory for your Codebase.  Works with Claude CLI and others
 
 ### Never Explain Your Codebase Twice.
 
@@ -141,6 +141,8 @@ cp docs/.cortexignore.default ../.cortexignore
 ```bash
 docker-compose up -d
 ```
+Wait for model to be ready
+![img.png](docs/img/model.png)
 
 > ⏱️ First run downloads the embedding model (~274MB, 2-5 min)
 
