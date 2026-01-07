@@ -47,7 +47,7 @@
     "db:sync": "node --max-old-space-size=4096 --import tsx/esm scripts/sync.ts",
     "db:wipe": "tsx scripts/delete-all.ts",
     "setup": "npm run db:setup && echo \"\" && echo \"✅ Database schema created! Now syncing files...\" && echo \"\" && npm run db:sync",
-    "hook:install": "cp hooks/pre-commit ../.git/hooks/pre-commit && chmod +x ../.git/hooks/pre-commit && echo \"✅ Git pre-commit hook installed!\"",
+    "hook:install": "tsx scripts/install-hook.ts",
     "mcp:server": "tsx src/server.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
