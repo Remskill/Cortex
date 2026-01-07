@@ -1,17 +1,34 @@
+<div align="center">
+
 # 🧠 Cortex
 
-## Never Explain Your Codebase Twice.
+### Never Explain Your Codebase Twice.
 
-**Unlimited memory for AI coding.** Stop AI amnesia.
-Your codebase, always in context. No more duplicate code. No more forgotten patterns.
+<br>
 
-**🔒 100% Local** · **💰 100% Free** · **🚀 Zero API Costs**
+[![MIT License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/Remskill/Cortex?style=for-the-badge&logo=github&color=yellow)](https://github.com/Remskill/Cortex)
+[![Buy Me a Coffee](https://img.shields.io/badge/Support-Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/denys_medvediev)
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/Remskill/Cortex?style=social)](https://github.com/Remskill/Cortex)
-[![Support](https://img.shields.io/badge/☕-Buy%20Me%20a%20Coffee-yellow.svg)](https://buymeacoffee.com/denys_medvediev)
+<br>
 
-[🚀 Quick Start](#-quick-start) · [⚙️ How It Works](#️-how-it-works) · [📖 Docs](#️-mcp-tools-reference) · [❓ FAQ](#-faq)
+![100% Local](https://img.shields.io/badge/🔒_100%25_Local-171717?style=flat-square)
+![100% Free](https://img.shields.io/badge/💰_100%25_Free-171717?style=flat-square)
+![Zero API Costs](https://img.shields.io/badge/🚀_Zero_API_Costs-171717?style=flat-square)
+
+<br>
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js_18+-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-8B5CF6?style=flat-square)](https://modelcontextprotocol.io/)
+
+<br>
+
+[🚀 Quick Start](#-quick-start) · [⚙️ How It Works](#-how-it-works) · [📖 Docs](#️-mcp-tools-reference) · [❓ FAQ](#-faq)
+
+</div>
 
 ---
 
